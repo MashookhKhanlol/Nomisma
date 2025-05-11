@@ -18,10 +18,10 @@ export default async function AccountPage({ params }) {
     <div className="space-y-8 px-5">
       <div className="flex gap-4 items-end justify-between">
         <div>
-          <h1 className="text-5xl sm:text-6xl font-bold tracking-tight gradient-title capitalize">
+          <h1 className="text-4xl sm:text-5xl font-bold tracking-tight gradient-title capitalize">
             {account.name}
           </h1>
-          <p className="text-muted-foreground">
+          <p className="text-gray-400">
             {account.type.charAt(0) + account.type.slice(1).toLowerCase()}{" "}
             Account
           </p>
@@ -31,7 +31,7 @@ export default async function AccountPage({ params }) {
           <div className="text-xl sm:text-2xl font-bold">
             ${parseFloat(account.balance).toFixed(2)}
           </div>
-          <p className="text-sm text-muted-foreground">
+          <p className="text-sm text-gray-400">
             {account._count.transactions} Transactions
           </p>
         </div>
@@ -39,14 +39,14 @@ export default async function AccountPage({ params }) {
 
       {/* Chart Section */}
       <Suspense
-        fallback={<BarLoader className="mt-4" width={"100%"} color="#9333ea" />}
+        fallback={<BarLoader className="mt-4" width={"100%"} color="#ffffff" />}
       >
         <AccountChart transactions={transactions} />
       </Suspense>
 
       {/* Transactions Table */}
       <Suspense
-        fallback={<BarLoader className="mt-4" width={"100%"} color="#9333ea" />}
+        fallback={<BarLoader className="mt-4" width={"100%"} color="#ffffff" />}
       >
         <TransactionTable transactions={transactions} />
       </Suspense>
