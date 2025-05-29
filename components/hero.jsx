@@ -66,7 +66,7 @@ const HeroSection = () => {
             </div>
           </div> */}
 
-          <div className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-6">
+          {/* <div className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-6">
             <div className="flex -space-x-4">
               {[1, 2, 3, 4].map((i) => (
                 <div 
@@ -82,7 +82,7 @@ const HeroSection = () => {
             <p className="text-gray-400">
               <span className="font-semibold text-gray-200">1,000+</span> finance professionals trust us
             </p>
-          </div>
+          </div> */}
         </div>
       </div>
       
