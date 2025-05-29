@@ -77,7 +77,7 @@ export function AccountChart({ transactions }) {
   }, [filteredData]);
 
   const netChange = totals.income - totals.expense;
-  const percentageChange = ((netChange / totals.income) * 100) || 0;
+  const percentageChange = (netChange / totals.income) * 100 || 0;
 
   return (
     <motion.div
@@ -86,7 +86,7 @@ export function AccountChart({ transactions }) {
       transition={{ duration: 0.5 }}
     >
       <Card className="backdrop-blur-sm bg-white/50 dark:bg-gray-800/50 border-gray-200/50">
-        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-7">
+        <CardHeader className="flex flex-col sm:flex-row items-start sm:items-center justify-between space-y-2 sm:space-y-0 pb-5 sm:pb-7">
           <div>
             <CardTitle className="text-xl font-semibold">
               Transaction Overview
@@ -96,7 +96,7 @@ export function AccountChart({ transactions }) {
             </p>
           </div>
           <Select defaultValue={dateRange} onValueChange={setDateRange}>
-            <SelectTrigger className="w-[160px] bg-white dark:bg-gray-800">
+            <SelectTrigger className="w-full sm:w-[160px] mt-2 sm:mt-0 bg-white dark:bg-gray-800">
               <SelectValue placeholder="Select range" />
             </SelectTrigger>
             <SelectContent>
@@ -109,7 +109,7 @@ export function AccountChart({ transactions }) {
           </Select>
         </CardHeader>
         <CardContent>
-          <div className="grid grid-cols-3 gap-4 mb-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 mb-6 sm:mb-8">
             <motion.div
               whileHover={{ scale: 1.02 }}
               className="p-4 rounded-xl bg-green-50 dark:bg-green-900/20 border border-green-100 dark:border-green-900/30"
@@ -118,8 +118,12 @@ export function AccountChart({ transactions }) {
                 <ArrowUpRight className="h-4 w-4" />
                 <span className="text-sm font-medium">Income</span>
               </div>
-              <p className="text-2xl font-bold text-green-600 dark:text-green-400">
-                ${totals.income.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+              <p className="text-xl sm:text-2xl font-bold text-green-600 dark:text-green-400">
+                $
+                {totals.income.toLocaleString("en-US", {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                })}
               </p>
             </motion.div>
 
@@ -131,88 +135,139 @@ export function AccountChart({ transactions }) {
                 <ArrowDownRight className="h-4 w-4" />
                 <span className="text-sm font-medium">Expenses</span>
               </div>
-              <p className="text-2xl font-bold text-red-600 dark:text-red-400">
-                ${totals.expense.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+              <p className="text-xl sm:text-2xl font-bold text-red-600 dark:text-red-400">
+                $
+                {totals.expense.toLocaleString("en-US", {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                })}
               </p>
             </motion.div>
 
             <motion.div
               whileHover={{ scale: 1.02 }}
-              className="p-4 rounded-xl bg-blue-50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-900/30"
+              className="p-4 rounded-xl bg-blue-50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-900/30 sm:col-span-2 md:col-span-1"
             >
               <div className="flex items-center gap-2 text-blue-600 dark:text-blue-400 mb-1">
                 <TrendingUp className="h-4 w-4" />
                 <span className="text-sm font-medium">Net Change</span>
               </div>
               <div className="flex items-baseline gap-2">
-                <p className={`text-2xl font-bold ${netChange >= 0 ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}`}>
-                  ${Math.abs(netChange).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                <p
+                  className={`text-xl sm:text-2xl font-bold ${netChange >= 0 ? "text-green-600 dark:text-green-400" : "text-red-600 dark:text-red-400"}`}
+                >
+                  $
+                  {Math.abs(netChange).toLocaleString("en-US", {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                  })}
                 </p>
-                <span className={`text-sm ${netChange >= 0 ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}`}>
+                <span
+                  className={`text-xs sm:text-sm ${netChange >= 0 ? "text-green-600 dark:text-green-400" : "text-red-600 dark:text-red-400"}`}
+                >
                   {percentageChange.toFixed(1)}%
                 </span>
               </div>
             </motion.div>
           </div>
 
-          <div className="h-[300px] mt-4">
+          <div className="h-[250px] sm:h-[300px] mt-4 -mx-4 sm:mx-0">
             <ResponsiveContainer width="100%" height="100%">
               <ComposedChart
                 data={filteredData}
-                margin={{ top: 10, right: 10, left: 10, bottom: 0 }}
+                margin={{
+                  top: 10,
+                  right: 10,
+                  left: 10,
+                  bottom: 0,
+                }}
               >
                 <defs>
-                  <linearGradient id="incomeGradient" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#22c55e" stopOpacity={0.2}/>
-                    <stop offset="95%" stopColor="#22c55e" stopOpacity={0}/>
+                  <linearGradient
+                    id="incomeGradient"
+                    x1="0"
+                    y1="0"
+                    x2="0"
+                    y2="1"
+                  >
+                    <stop offset="5%" stopColor="#22c55e" stopOpacity={0.2} />
+                    <stop offset="95%" stopColor="#22c55e" stopOpacity={0} />
                   </linearGradient>
-                  <linearGradient id="expenseGradient" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#ef4444" stopOpacity={0.2}/>
-                    <stop offset="95%" stopColor="#ef4444" stopOpacity={0}/>
+                  <linearGradient
+                    id="expenseGradient"
+                    x1="0"
+                    y1="0"
+                    x2="0"
+                    y2="1"
+                  >
+                    <stop offset="5%" stopColor="#ef4444" stopOpacity={0.2} />
+                    <stop offset="95%" stopColor="#ef4444" stopOpacity={0} />
                   </linearGradient>
                 </defs>
-                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e5e7eb" />
+                <CartesianGrid
+                  strokeDasharray="3 3"
+                  vertical={false}
+                  stroke="#e5e7eb"
+                />
                 <XAxis
                   dataKey="date"
-                  fontSize={12}
+                  fontSize={10}
                   tickLine={false}
                   axisLine={false}
                   stroke="#9ca3af"
+                  tick={{ fontSize: "10px" }}
+                  interval="preserveStartEnd"
                 />
                 <YAxis
-                  fontSize={12}
+                  fontSize={10}
                   tickLine={false}
                   axisLine={false}
                   tickFormatter={(value) => `$${value}`}
                   stroke="#9ca3af"
+                  tick={{ fontSize: "10px" }}
+                  width={40}
                 />
                 <Tooltip
-                  formatter={(value) => [`$${value.toLocaleString()}`, undefined]}
+                  formatter={(value) => [
+                    `$${value.toLocaleString()}`,
+                    undefined,
+                  ]}
                   contentStyle={{
                     backgroundColor: "rgba(255, 255, 255, 0.95)",
                     border: "1px solid #e5e7eb",
                     borderRadius: "8px",
                     boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1)",
+                    fontSize: "12px",
+                  }}
+                  wrapperStyle={{
+                    zIndex: 1000,
+                  }}
+                  labelStyle={{
+                    fontSize: "12px",
                   }}
                 />
                 <Legend
                   verticalAlign="top"
                   height={36}
                   iconType="circle"
+                  iconSize={8}
+                  wrapperStyle={{
+                    fontSize: "12px",
+                  }}
                 />
                 <Bar
                   dataKey="income"
                   name="Income"
                   fill="#22c55e"
                   radius={[4, 4, 0, 0]}
-                  maxBarSize={50}
+                  maxBarSize={window?.innerWidth < 640 ? 20 : 50}
                 />
                 <Bar
                   dataKey="expense"
                   name="Expense"
                   fill="#ef4444"
                   radius={[4, 4, 0, 0]}
-                  maxBarSize={50}
+                  maxBarSize={window?.innerWidth < 640 ? 20 : 50}
                 />
                 <Area
                   type="monotone"
