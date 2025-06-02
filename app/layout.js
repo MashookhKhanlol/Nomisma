@@ -68,18 +68,6 @@ export default function RootLayout({ children }) {
                         <ul className="space-y-4">
                           <li><a href="#" className="text-gray-300 hover:text-white transition-colors">About Us</a></li>
                           <li><a href="#" className="text-gray-300 hover:text-white transition-colors">Contact</a></li>
-                          <li><a href="#" className="text-gray-300 hover:text-white transition-colors">Careers</a></li>
-                          <li><a href="#" className="text-gray-300 hover:text-white transition-colors">Press Kit</a></li>
-                        </ul>
-                      </div>
-
-                      <div>
-                        <h3 className="text-lg font-playfair font-semibold mb-6 relative after:content-[''] after:block after:w-12 after:h-0.5 after:bg-blue-400 after:mt-2">Resources</h3>
-                        <ul className="space-y-4">
-                          <li><a href="#" className="text-gray-300 hover:text-white transition-colors">Blog</a></li>
-                          <li><a href="#" className="text-gray-300 hover:text-white transition-colors">Help Center</a></li>
-                          <li><a href="#" className="text-gray-300 hover:text-white transition-colors">Privacy Policy</a></li>
-                          <li><a href="#" className="text-gray-300 hover:text-white transition-colors">Terms of Service</a></li>
                         </ul>
                       </div>
 
@@ -92,11 +80,11 @@ export default function RootLayout({ children }) {
                           </li>
                           <li className="flex items-start">
                             <span className="text-blue-400 mr-3">📞</span>
-                            <span className="text-gray-300">+1 (555) 123-4567</span>
+                            <span className="text-gray-300">+91 999 787 878</span>
                           </li>
                           <li className="flex items-start">
                             <span className="text-blue-400 mr-3">📍</span>
-                            <span className="text-gray-300">123 Finance St, San Francisco, CA 94103</span>
+                            <span className="text-gray-300">153 Chirag Delhi, New Delhi, India 1673</span>
                           </li>
                         </ul>
                       </div>

@@ -150,7 +150,7 @@ export function DashboardOverview({ accounts, transactions }) {
             value={selectedAccountId}
             onValueChange={setSelectedAccountId}
           >
-            <SelectTrigger className="w-full sm:w-[160px] bg-gray-50 border-gray-200">
+            <SelectTrigger className="w-full sm:w-[160px] bg-muted border-gray-200">
               <SelectValue placeholder="Select account" />
             </SelectTrigger>
             <SelectContent>
@@ -165,7 +165,7 @@ export function DashboardOverview({ accounts, transactions }) {
         <CardContent>
           <div className="space-y-5">
             {recentTransactions.length === 0 ? (
-              <div className="text-center text-muted-foreground py-8 bg-gray-50 rounded-lg">
+              <div className="text-center text-muted-foreground py-8 bg-muted rounded-lg">
                 <p>No recent transactions</p>
                 <p className="text-xs mt-1">Transactions will appear here</p>
               </div>
@@ -173,7 +173,7 @@ export function DashboardOverview({ accounts, transactions }) {
               recentTransactions.map((transaction) => (
                 <div
                   key={transaction.id}
-                  className="flex items-center justify-between p-3 rounded-lg hover:bg-gray-50 transition-colors"
+                  className="flex items-center justify-between p-3 rounded-lg hover:bg-muted transition-colors"
                 >
                   <div className="flex items-start gap-3">
                     <div
@@ -278,7 +278,7 @@ export function DashboardOverview({ accounts, transactions }) {
         </CardHeader>
         <CardContent>
           {chartData.length === 0 ? (
-            <div className="text-center text-muted-foreground py-8 bg-gray-50 rounded-lg">
+            <div className="text-center text-muted-foreground py-8 bg-muted rounded-lg">
               <p>No expenses this month</p>
               <p className="text-xs mt-1">Spending data will appear here</p>
             </div>

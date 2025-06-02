@@ -95,7 +95,7 @@ export function AccountCard({ account }) {
             <span className="text-sm text-muted-foreground">USD</span>
           </div>
         </CardContent>
-        <CardFooter className="flex justify-between text-sm bg-gray-50 dark:bg-gray-900/50 py-3 relative z-10">
+        <CardFooter className="flex justify-between text-sm bg-muted dark:bg-gray-900/50 py-3 relative z-10">
           <div className="flex items-center gap-3">
             <div className="flex items-center">
               <ArrowUpRight className="mr-1 h-4 w-4 text-green-500" />

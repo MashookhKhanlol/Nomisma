@@ -5,6 +5,7 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import { SignInButton } from "@clerk/nextjs";
 
 const HeroSection = () => {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -42,12 +43,12 @@ const HeroSection = () => {
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-16">
-            <Link href="/dashboard">
+              <SignInButton forceRedirectUrl="/dashboard" mode="modal">
               <Button size="lg" className="bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white px-8 py-7 rounded-full flex items-center gap-3 shadow-lg shadow-blue-500/30 hover:shadow-blue-600/40 transition-all duration-300 font-medium hover:scale-105">
                 Get Started Free
                 <ArrowRight size={20} />
               </Button>
-            </Link>
+              </SignInButton>
           </div>
 
           {/* <div className={`relative mb-16 transition-all duration-1000 delay-200 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>

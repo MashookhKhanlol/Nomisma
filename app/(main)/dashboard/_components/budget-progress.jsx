@@ -18,7 +18,6 @@ import { toast } from "sonner";
 import {
   Card,
   CardContent,
-  CardDescription,
   CardHeader,
   CardTitle,
   CardFooter,
@@ -159,7 +158,6 @@ export function BudgetProgress({ initialBudget, currentExpenses }) {
               onClick={() => setIsEditing(true)}
               className="mt-2 bg-blue-600 hover:bg-blue-700"
             >
-              <DollarSign className="h-4 w-4 mr-1" />
               Set Monthly Budget
             </Button>
           </div>

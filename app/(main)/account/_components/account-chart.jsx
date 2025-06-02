@@ -119,7 +119,7 @@ export function AccountChart({ transactions }) {
                 <span className="text-sm font-medium">Income</span>
               </div>
               <p className="text-xl sm:text-2xl font-bold text-green-600 dark:text-green-400">
-                $
+                ₹
                 {totals.income.toLocaleString("en-US", {
                   minimumFractionDigits: 2,
                   maximumFractionDigits: 2,
@@ -136,7 +136,7 @@ export function AccountChart({ transactions }) {
                 <span className="text-sm font-medium">Expenses</span>
               </div>
               <p className="text-xl sm:text-2xl font-bold text-red-600 dark:text-red-400">
-                $
+                ₹
                 {totals.expense.toLocaleString("en-US", {
                   minimumFractionDigits: 2,
                   maximumFractionDigits: 2,
@@ -156,7 +156,7 @@ export function AccountChart({ transactions }) {
                 <p
                   className={`text-xl sm:text-2xl font-bold ${netChange >= 0 ? "text-green-600 dark:text-green-400" : "text-red-600 dark:text-red-400"}`}
                 >
-                  $
+                  ₹
                   {Math.abs(netChange).toLocaleString("en-US", {
                     minimumFractionDigits: 2,
                     maximumFractionDigits: 2,
@@ -222,14 +222,14 @@ export function AccountChart({ transactions }) {
                   fontSize={10}
                   tickLine={false}
                   axisLine={false}
-                  tickFormatter={(value) => `$${value}`}
+                  tickFormatter={(value) => `₹${value}`}
                   stroke="#9ca3af"
                   tick={{ fontSize: "10px" }}
                   width={40}
                 />
                 <Tooltip
                   formatter={(value) => [
-                    `$${value.toLocaleString()}`,
+                    `₹${value.toLocaleString()}`,
                     undefined,
                   ]}
                   contentStyle={{
