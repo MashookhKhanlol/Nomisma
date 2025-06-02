@@ -90,9 +90,9 @@ export function AccountCard({ account }) {
         <CardContent className="py-4 relative z-10">
           <div className="flex items-baseline gap-1">
             <span className="text-3xl font-bold tracking-tight">
-              ${parseFloat(balance).toFixed(2)}
+              ₹{parseFloat(balance).toFixed(2)}
             </span>
-            <span className="text-sm text-muted-foreground">USD</span>
+            <span className="text-sm text-muted-foreground">INR</span>
           </div>
         </CardContent>
         <CardFooter className="flex justify-between text-sm bg-muted dark:bg-gray-900/50 py-3 relative z-10">

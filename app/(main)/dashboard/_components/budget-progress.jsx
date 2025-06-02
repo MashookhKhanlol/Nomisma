@@ -35,7 +35,6 @@ export function BudgetProgress({ initialBudget, currentExpenses }) {
   );
   const [isMobile, setIsMobile] = useState(false);
 
-  // Check for mobile screen on client side
   useEffect(() => {
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 640);
@@ -67,8 +66,7 @@ export function BudgetProgress({ initialBudget, currentExpenses }) {
   };
 
   const getBudgetStatusIcon = () => {
-    if (isOverBudget) return <AlertTriangle className="w-4 h-4 mr-1" />;
-    if (isNearLimit) return <AlertTriangle className="w-4 h-4 mr-1" />;
+    if (isOverBudget || isNearLimit) return <AlertTriangle className="w-4 h-4 mr-1" />;
     return <Check className="w-4 h-4 mr-1" />;
   };
 
@@ -80,12 +78,10 @@ export function BudgetProgress({ initialBudget, currentExpenses }) {
 
   const handleUpdateBudget = async () => {
     const amount = parseFloat(newBudget);
-
     if (isNaN(amount) || amount <= 0) {
       toast.error("Please enter a valid amount");
       return;
     }
-
     await updateBudgetFn(amount);
   };
 
@@ -107,7 +103,6 @@ export function BudgetProgress({ initialBudget, currentExpenses }) {
     }
   }, [error]);
 
-  // Get current month and year
   const currentMonthYear = new Intl.DateTimeFormat("en-US", {
     month: "long",
     year: "numeric",
@@ -121,11 +116,8 @@ export function BudgetProgress({ initialBudget, currentExpenses }) {
             <span className="bg-blue-100 p-1.5 rounded-full">
               <BarChart3 size={16} className="text-blue-600" />
             </span>
-            <CardTitle className="text-base font-semibold">
-              Monthly Budget
-            </CardTitle>
+            <CardTitle className="text-base font-semibold">Monthly Budget</CardTitle>
           </div>
-
           {!isEditing && initialBudget && (
             <Badge
               variant="outline"
@@ -158,6 +150,7 @@ export function BudgetProgress({ initialBudget, currentExpenses }) {
               onClick={() => setIsEditing(true)}
               className="mt-2 bg-blue-600 hover:bg-blue-700"
             >
+              <DollarSign className="h-4 w-4 mr-1" />
               Set Monthly Budget
             </Button>
           </div>
@@ -171,7 +164,7 @@ export function BudgetProgress({ initialBudget, currentExpenses }) {
                 <div className="flex flex-col sm:flex-row items-center gap-2">
                   <div className="relative flex-1 w-full">
                     <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500">
-                      $
+                      ₹
                     </span>
                     <Input
                       type="number"
@@ -225,13 +218,18 @@ export function BudgetProgress({ initialBudget, currentExpenses }) {
               <>
                 <div className="flex flex-col sm:flex-row justify-between sm:items-center">
                   <div>
-                    <p className="text-sm text-muted-foreground">
-                      Current Spending
-                    </p>
+                    <p className="text-sm text-muted-foreground">Current Spending</p>
                     <p className="text-xl font-semibold mt-1">
-                      ${currentExpenses.toFixed(2)}{" "}
+                      {currentExpenses.toLocaleString("en-IN", {
+                        style: "currency",
+                        currency: "INR",
+                      })}{" "}
                       <span className="text-sm text-muted-foreground font-normal ml-1">
-                        of ${initialBudget.amount.toFixed(2)}
+                        of{" "}
+                        {initialBudget.amount.toLocaleString("en-IN", {
+                          style: "currency",
+                          currency: "INR",
+                        })}
                       </span>
                     </p>
                   </div>
@@ -246,13 +244,9 @@ export function BudgetProgress({ initialBudget, currentExpenses }) {
                   </Button>
                 </div>
 
-                {/* Responsive Circular Budget Chart */}
                 <div className="flex flex-col sm:flex-row items-center justify-center py-4">
                   <div className="relative w-28 h-28 sm:w-32 sm:h-32 mb-4 sm:mb-0">
-                    {/* Background circle */}
                     <div className="absolute inset-0 rounded-full border-8 border-gray-100"></div>
-
-                    {/* Progress circle with gradient */}
                     <svg
                       className="absolute inset-0 w-full h-full rotate-[-90deg]"
                       viewBox="0 0 100 100"
@@ -262,13 +256,11 @@ export function BudgetProgress({ initialBudget, currentExpenses }) {
                         cy="50"
                         r="46"
                         fill="none"
-                        stroke={
-                          isOverBudget
-                            ? "#FEE2E2" // Light red for over budget
-                            : isNearLimit
-                              ? "#FEF3C7" // Light amber for near limit
-                              : "#DCFCE7" // Light green for on track
-                        }
+                        stroke={isOverBudget
+                          ? "#FEE2E2"
+                          : isNearLimit
+                          ? "#FEF3C7"
+                          : "#DCFCE7"}
                         strokeWidth="8"
                       />
                       <circle
@@ -276,13 +268,11 @@ export function BudgetProgress({ initialBudget, currentExpenses }) {
                         cy="50"
                         r="46"
                         fill="none"
-                        stroke={
-                          isOverBudget
-                            ? "#EF4444" // Red for over budget
-                            : isNearLimit
-                              ? "#F59E0B" // Amber for near limit
-                              : "#10B981" // Green for on track
-                        }
+                        stroke={isOverBudget
+                          ? "#EF4444"
+                          : isNearLimit
+                          ? "#F59E0B"
+                          : "#10B981"}
                         strokeWidth="8"
                         strokeDasharray="289.02652413026095"
                         strokeDashoffset={
@@ -292,31 +282,33 @@ export function BudgetProgress({ initialBudget, currentExpenses }) {
                         strokeLinecap="round"
                       />
                     </svg>
-
-                    {/* Center text */}
                     <div className="absolute inset-0 flex flex-col items-center justify-center">
                       <span className="text-xl sm:text-2xl font-bold">
                         {Math.min(percentUsed, 100).toFixed(0)}%
                       </span>
-                      <span className="text-xs text-muted-foreground">
-                        Used
-                      </span>
+                      <span className="text-xs text-muted-foreground">Used</span>
                     </div>
                   </div>
-
-                  {/* Extra info for desktop */}
                   {!isMobile && (
                     <div className="ml-6 space-y-2 hidden sm:block">
                       <div className="flex items-center gap-2">
                         <div className="w-3 h-3 rounded-full bg-green-500"></div>
                         <span className="text-sm">
-                          Budget: ${initialBudget.amount.toFixed(2)}
+                          Budget:{" "}
+                          {initialBudget.amount.toLocaleString("en-IN", {
+                            style: "currency",
+                            currency: "INR",
+                          })}
                         </span>
                       </div>
                       <div className="flex items-center gap-2">
                         <div className="w-3 h-3 rounded-full bg-red-500"></div>
                         <span className="text-sm">
-                          Spent: ${currentExpenses.toFixed(2)}
+                          Spent:{" "}
+                          {currentExpenses.toLocaleString("en-IN", {
+                            style: "currency",
+                            currency: "INR",
+                          })}
                         </span>
                       </div>
                       <div className="flex items-center gap-2">
@@ -326,8 +318,11 @@ export function BudgetProgress({ initialBudget, currentExpenses }) {
                           }`}
                         ></div>
                         <span className="text-sm">
-                          {remaining >= 0 ? "Remaining:" : "Overspent:"} $
-                          {Math.abs(remaining).toFixed(2)}
+                          {remaining >= 0 ? "Remaining:" : "Overspent:"}{" "}
+                          {Math.abs(remaining).toLocaleString("en-IN", {
+                            style: "currency",
+                            currency: "INR",
+                          })}
                         </span>
                       </div>
                     </div>
@@ -338,8 +333,15 @@ export function BudgetProgress({ initialBudget, currentExpenses }) {
                   <div className="flex justify-between items-center text-xs">
                     <span>Budget Usage</span>
                     <span className="font-medium">
-                      ${currentExpenses.toFixed(2)} / $
-                      {initialBudget.amount.toFixed(2)}
+                      {currentExpenses.toLocaleString("en-IN", {
+                        style: "currency",
+                        currency: "INR",
+                      })}{" "}
+                      /{" "}
+                      {initialBudget.amount.toLocaleString("en-IN", {
+                        style: "currency",
+                        currency: "INR",
+                      })}
                     </span>
                   </div>
                   <Progress
@@ -348,15 +350,15 @@ export function BudgetProgress({ initialBudget, currentExpenses }) {
                       isOverBudget
                         ? "bg-red-100"
                         : isNearLimit
-                          ? "bg-amber-100"
-                          : "bg-green-100"
+                        ? "bg-amber-100"
+                        : "bg-green-100"
                     }`}
                     extraStyles={
                       isOverBudget
                         ? "bg-red-500"
                         : isNearLimit
-                          ? "bg-amber-500"
-                          : "bg-green-500"
+                        ? "bg-amber-500"
+                        : "bg-green-500"
                     }
                   />
                 </div>
@@ -371,13 +373,21 @@ export function BudgetProgress({ initialBudget, currentExpenses }) {
           <div className="text-sm flex items-center">
             {remaining >= 0 ? (
               <span className="text-green-600 font-medium flex items-center gap-1">
-                <DollarSign size={14} className="text-green-500" />$
-                {remaining.toFixed(2)} remaining
+                <DollarSign size={14} className="text-green-500" />
+                {remaining.toLocaleString("en-IN", {
+                  style: "currency",
+                  currency: "INR",
+                })}{" "}
+                remaining
               </span>
             ) : (
               <span className="text-red-600 font-medium flex items-center gap-1">
-                <TrendingUp size={14} />${Math.abs(remaining).toFixed(2)} over
-                budget
+                <TrendingUp size={14} />
+                {Math.abs(remaining).toLocaleString("en-IN", {
+                  style: "currency",
+                  currency: "INR",
+                })}{" "}
+                over budget
               </span>
             )}
           </div>

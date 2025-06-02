@@ -120,7 +120,7 @@ export function AccountChart({ transactions }) {
               </div>
               <p className="text-xl sm:text-2xl font-bold text-green-600 dark:text-green-400">
                 ₹
-                {totals.income.toLocaleString("en-US", {
+                {totals.income.toLocaleString("en-IN", {
                   minimumFractionDigits: 2,
                   maximumFractionDigits: 2,
                 })}
@@ -137,7 +137,7 @@ export function AccountChart({ transactions }) {
               </div>
               <p className="text-xl sm:text-2xl font-bold text-red-600 dark:text-red-400">
                 ₹
-                {totals.expense.toLocaleString("en-US", {
+                {totals.expense.toLocaleString("en-IN", {
                   minimumFractionDigits: 2,
                   maximumFractionDigits: 2,
                 })}
@@ -157,7 +157,7 @@ export function AccountChart({ transactions }) {
                   className={`text-xl sm:text-2xl font-bold ${netChange >= 0 ? "text-green-600 dark:text-green-400" : "text-red-600 dark:text-red-400"}`}
                 >
                   ₹
-                  {Math.abs(netChange).toLocaleString("en-US", {
+                  {Math.abs(netChange).toLocaleString("en-IN", {
                     minimumFractionDigits: 2,
                     maximumFractionDigits: 2,
                   })}
@@ -228,10 +228,7 @@ export function AccountChart({ transactions }) {
                   width={40}
                 />
                 <Tooltip
-                  formatter={(value) => [
-                    `₹${value.toLocaleString()}`,
-                    undefined,
-                  ]}
+                  formatter={(value) => [`₹${value.toLocaleString("en-IN")}`, undefined]}
                   contentStyle={{
                     backgroundColor: "rgba(255, 255, 255, 0.95)",
                     border: "1px solid #e5e7eb",
@@ -260,14 +257,14 @@ export function AccountChart({ transactions }) {
                   name="Income"
                   fill="#22c55e"
                   radius={[4, 4, 0, 0]}
-                  maxBarSize={window?.innerWidth < 640 ? 20 : 50}
+                  maxBarSize={typeof window !== "undefined" && window.innerWidth < 640 ? 20 : 50}
                 />
                 <Bar
                   dataKey="expense"
                   name="Expense"
                   fill="#ef4444"
                   radius={[4, 4, 0, 0]}
-                  maxBarSize={window?.innerWidth < 640 ? 20 : 50}
+                  maxBarSize={typeof window !== "undefined" && window.innerWidth < 640 ? 20 : 50}
                 />
                 <Area
                   type="monotone"
